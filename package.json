@@ -1,0 +1,26 @@
+{
+  "name": "three-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parcel ./demo/**/*.html",
+    "build": "parcel build ./demo/**/*.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/hpstream/three-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5",
+    "typescript": "^4.4.2"
+  },
+  "dependencies": {
+    "@types/three": "^0.131.0",
+    "three": "^0.132.2"
+  }
+}

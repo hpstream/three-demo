@@ -965,6 +965,11 @@
   resolved "http://npm.wemomo.com/@types%2fq/-/q-1.5.5.tgz#75a2a8e7d8ab4b230414505d92335d1dcb53a6df"
   integrity sha1-daKo59irSyMEFFBdkjNdHctTpt8=
 
+"@types/stats.js@^0.17.0":
+  version "0.17.0"
+  resolved "http://npm.wemomo.com/@types%2fstats.js/-/stats.js-0.17.0.tgz#0ed81d48e03b590c24da85540c1d952077a9fe20"
+  integrity sha1-DtgdSOA7WQwk2oVUDB2VIHep/iA=
+
 "@types/three@^0.131.0":
   version "0.131.0"
   resolved "http://npm.wemomo.com/@types%2fthree/-/three-0.131.0.tgz#98f59887b05f71e665cf2fbdf04e0e4ceb9f89b6"
@@ -4794,6 +4799,11 @@ static-module@^2.2.0:
     shallow-copy "~0.0.1"
     static-eval "^2.0.0"
     through2 "~2.0.3"
+
+stats.js@^0.17.0:
+  version "0.17.0"
+  resolved "http://npm.wemomo.com/stats.js/-/stats.js-0.17.0.tgz#b1c3dc46d94498b578b7fd3985b81ace7131cc7d"
+  integrity sha1-scPcRtlEmLV4t/05hbgaznExzH0=
 
 "statuses@>= 1.5.0 < 2", statuses@~1.5.0:
   version "1.5.0"

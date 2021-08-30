@@ -20,7 +20,9 @@
     "typescript": "^4.4.2"
   },
   "dependencies": {
+    "@types/stats.js": "^0.17.0",
     "@types/three": "^0.131.0",
+    "stats.js": "^0.17.0",
     "three": "^0.132.2"
   }
 }

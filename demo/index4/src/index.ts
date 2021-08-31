@@ -13,7 +13,14 @@ import {
   MeshLambertMaterial,
 } from "three";
 import Stats from "stats.js";
-
+import * as dat from "dat.gui";
+const gui = new dat.GUI();
+var controls = new (function () {
+  this.rotationSpeed = 0.02;
+  this.bouncingSpeed = 0.03;
+})();
+ gui.add(controls, "rotationSpeed", 0, 0.5);
+ gui.add(controls, "bouncingSpeed", 0, 0.5);
 // import * as THREE from "three";
 // 学习目标：
 // 1. 物体运动
@@ -62,13 +69,13 @@ function paintGeometry() {
 
   function renderScene() {
     stats.update();
-    cube.rotation.x += 0.02;
-    cube.rotation.y += 0.02;
-    cube.rotation.z += 0.02;
+    cube.rotation.x += controls.rotationSpeed;
+    cube.rotation.y += controls.rotationSpeed;
+    cube.rotation.z += controls.rotationSpeed;
 
     // bounce the sphere up and down
-    step += 0.04;
-    sphere.position.x = 20 + 10 * Math.cos(step);
+    step += controls.bouncingSpeed;
+    sphere.position.x = 0 + 10 * Math.cos(step);
     sphere.position.y = 2 + 10 * Math.abs(Math.sin(step));
 
     // render using requestAnimationFrame

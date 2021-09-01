@@ -65,6 +65,7 @@ function init() {
   // render the scene
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setClearColor(new Color(0xeeeeee));
+  renderer.shadowMap.enabled = true;
   paintLight();
   paintGeometry();
 

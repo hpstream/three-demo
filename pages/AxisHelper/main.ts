@@ -4,20 +4,32 @@ export {};
 
 let scene = new THREE.Scene();
 
-// 2.创建一个几何体，或者说创建网格模型
-let boxGeometry = new THREE.BoxGeometry(100, 100, 100);
-// 3. 创建材质
-// THREE.MeshBasicMaterial
-let material = new THREE.MeshPhongMaterial({
-  color: 0xff0000,
-  wireframe: true,
+// 立方体网格模型
+var geometry1 = new THREE.BoxGeometry(100, 100, 100);
+var material1 = new THREE.MeshLambertMaterial({
+  color: 0x0000ff,
+}); //材质对象Material
+var mesh1 = new THREE.Mesh(geometry1, material1); //网格模型对象Mesh
+// scene.add(mesh1); //网格模型添加到场景中
+
+// 球体网格模型
+var geometry2 = new THREE.SphereGeometry(60, 40, 40);
+var material2 = new THREE.MeshLambertMaterial({
+  color: 0xff00ff,
 });
+var mesh2 = new THREE.Mesh(geometry2, material2); //网格模型对象Mesh
+mesh2.translateY(120); //球体网格模型沿Y轴正方向平移120
+scene.add(mesh2);
 
-// 4. 创建具体物体， 网格模型对象Mesh
-let boxMesh = new THREE.Mesh(boxGeometry, material);
-
-// 5. 将物体添加到场景中
-scene.add(boxMesh);
+// 圆柱网格模型
+var geometry3 = new THREE.CylinderGeometry(50, 50, 100, 25);
+var material3 = new THREE.MeshLambertMaterial({
+  color: 0xffff00,
+});
+var mesh3 = new THREE.Mesh(geometry3, material3); //网格模型对象Mesh
+// mesh3.translateX(120); //球体网格模型沿Y轴正方向平移120
+// mesh2.position.set(120, 120, 0); //设置mesh3模型对象的xyz坐标为120,0,0
+// scene.add(mesh3); //
 
 //点光源
 var point = new THREE.PointLight(0xffffff);
@@ -26,7 +38,10 @@ scene.add(point); //点光源添加到场景中
 //环境光
 var ambient = new THREE.AmbientLight(0x444444);
 scene.add(ambient);
-
+// 增加辅助坐标系
+var axisHelper = new THREE.AxesHelper(250);
+// var axisHelper1 = new THREE.AxesHelper(250);
+scene.add(axisHelper);
 /**
  * 相机设置
  */

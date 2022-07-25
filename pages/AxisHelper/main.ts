@@ -1,7 +1,5 @@
 import * as THREE from "three";
 // export {};
-// 1. 创建一个场景
-var controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 let scene = new THREE.Scene();
 

@@ -1,5 +1,5 @@
-// import * as THREE from "three";
-export {};
+import * as THREE from "three";
+
 // 1. 创建一个场景
 
 let scene = new THREE.Scene();

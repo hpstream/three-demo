@@ -13,7 +13,7 @@
     "typeRoots": [],
     "types": []
   },
-  "include": ["src/**/*.ts", "pages/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src","pages","types"],
   "references": [{
     "path": "./tsconfig.node.json"
   }]

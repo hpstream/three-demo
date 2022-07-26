@@ -9,12 +9,17 @@
 5. 灯光Light。 创建灯光有：环境光：AmbientLight，点光源PointLight。
 6. 相机Camera。 
 7. 渲染器WebGLRenderer
-案例： 构建第一个学习3D场景【3d-one】
+案例： 构建第一个学习3D场景【01-basic-scene】
 
 ### 物体旋转动画
 > setInterval,requestAnimationFrame
 案例： 旋转案例【rotate】
 
+
+
+学习案例：
+1. hello world threejs
+2. 几何体分组，和辅助线函数使用
 
 
 

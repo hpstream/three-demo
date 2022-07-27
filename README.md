@@ -20,6 +20,9 @@
 学习案例：
 1. hello world threejs
 2. 几何体分组，和辅助线函数使用
+3. 使用gsap实现动画
+4. 使用OrbitControls控制展示
+5. 全屏控制
 
 
 

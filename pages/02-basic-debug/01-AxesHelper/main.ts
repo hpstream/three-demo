@@ -25,6 +25,9 @@ var k = width / height; //窗口宽高比
 var camera = new THREE.PerspectiveCamera(75, k, 0.1, 1000);
 camera.position.z = 10;
 
+let axesHelper = new THREE.AxesHelper(5);
+scene.add(axesHelper)
+
 /**
  * 渲染器
  */

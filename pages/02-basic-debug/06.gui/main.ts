@@ -1,7 +1,9 @@
 import gsap from "gsap";
 import * as THREE from "three";
+
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
+import * as dat from "dat.gui";
 
 // 目标：了解threejs的基本内容
 
@@ -14,7 +16,42 @@ let scene = new THREE.Scene();
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 const material = new THREE.MeshBasicMaterial({ color: 0xff0000 }); //红色
 const mesh = new THREE.Mesh(geometry, material);
-scene.add(mesh);
+// scene.add(mesh);
+
+console.log(geometry)
+
+let gui = new dat.GUI();
+let g = gui.addFolder("立方体");
+g.open();
+// 数字操作
+g.add(mesh.position, "x")
+  .min(0)
+  .max(5)
+  .step(0.1)
+  .name("移动x")
+  .onChange((value) => {
+    console.log("值被修改：", value);
+  })
+  .onFinishChange((value) => {
+    console.log("完全停下来:", value);
+  });
+let params = {
+  color: '#000000',
+  fn: () => {
+    let animate = gsap.to(mesh.position, { x: 5, duration: 2, repeat: -1, yoyo: true, ease: "power1.inOut" })
+
+  }
+}
+// 修改颜色,字符串操作
+g.addColor(params, 'color').onChange((value: string) => {
+  mesh.material.color.set(value)
+})
+// 布尔值
+g.add(mesh, 'visible').name('是否显示')
+// 执行函数
+g.add(params, 'fn').name('开始动画')
+
+
 
 
 /**
@@ -30,7 +67,7 @@ camera.position.y = 10;
 camera.position.x = 10;
 
 let axesHelper = new THREE.AxesHelper(5);
-scene.add(axesHelper)
+scene.add(axesHelper);
 
 /**
  * 渲染器
@@ -39,31 +76,11 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(width, height);
 // camera.lookAt(0, 0, 0)
 renderer.render(scene, camera);
-document.body.appendChild(renderer.domElement)
+document.body.appendChild(renderer.domElement);
 
-new OrbitControls(camera, renderer.domElement)
+new OrbitControls(camera, renderer.domElement);
 
 
-let animate = gsap.to(mesh.position, { x: 5, duration: 2, repeat: -1, yoyo: true, ease: "power1.inOut" })
-
-window.addEventListener('dblclick', () => {
-  if (animate.isActive()) {
-    animate.pause()
-  } else {
-    animate.play()
-  }
-})
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  // 更新摄像机的投影矩阵
-  camera.updateProjectionMatrix();
-
-  console.log('resize')
-
-  renderer.render(scene, camera)
-  renderer.setSize(window.innerWidth, window.innerHeight)
-  renderer.setPixelRatio(window.devicePixelRatio)
-})
 
 window.addEventListener("dblclick", () => {
   const fullScreenElement = document.fullscreenElement;
@@ -80,11 +97,7 @@ window.addEventListener("dblclick", () => {
 
 // 如果不重新绘制，物体会禁止就会不动
 function render(time: number) {
-
   renderer.render(scene, camera);
-  requestAnimationFrame(render)
+  requestAnimationFrame(render);
 }
 window.requestAnimationFrame(render);
-
-
-

@@ -1,7 +1,9 @@
 import gsap from "gsap";
 import * as THREE from "three";
+
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
+import * as dat from "dat.gui";
 
 // 目标：了解threejs的基本内容
 
@@ -11,10 +13,28 @@ let scene = new THREE.Scene();
 /**
  * 几何体
  */
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000 }); //红色
-const mesh = new THREE.Mesh(geometry, material);
-scene.add(mesh);
+// const geometry = new THREE.BoxGeometry(1, 1, 1);
+// const material = new THREE.MeshBasicMaterial({ color: 0xff0000 }); //红色
+// const mesh = new THREE.Mesh(geometry, material);
+// scene.add(mesh);
+
+const geometry = new THREE.BufferGeometry();
+
+const vertices = new Float32Array([
+  [0, 0, 0],
+  [1, 0, 0],
+  [0, 1, 0]
+].flat())
+
+geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
+
+const material = new THREE.MeshBasicMaterial({
+  color: '#ff0000'
+})
+const triangle = new THREE.Mesh(geometry, material)
+
+scene.add(triangle)
+
 
 
 /**
@@ -30,7 +50,7 @@ camera.position.y = 10;
 camera.position.x = 10;
 
 let axesHelper = new THREE.AxesHelper(5);
-scene.add(axesHelper)
+scene.add(axesHelper);
 
 /**
  * 渲染器
@@ -39,30 +59,16 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(width, height);
 // camera.lookAt(0, 0, 0)
 renderer.render(scene, camera);
-document.body.appendChild(renderer.domElement)
+document.body.appendChild(renderer.domElement);
 
-new OrbitControls(camera, renderer.domElement)
+new OrbitControls(camera, renderer.domElement);
 
-
-let animate = gsap.to(mesh.position, { x: 5, duration: 2, repeat: -1, yoyo: true, ease: "power1.inOut" })
-
-window.addEventListener('dblclick', () => {
-  if (animate.isActive()) {
-    animate.pause()
-  } else {
-    animate.play()
-  }
-})
 
 
 
 // 如果不重新绘制，物体会禁止就会不动
 function render(time: number) {
-
   renderer.render(scene, camera);
-  requestAnimationFrame(render)
+  requestAnimationFrame(render);
 }
 window.requestAnimationFrame(render);
-
-
-

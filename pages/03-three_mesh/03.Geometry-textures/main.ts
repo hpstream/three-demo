@@ -18,57 +18,42 @@ let scene = new THREE.Scene();
 // const mesh = new THREE.Mesh(geometry, material);
 // scene.add(mesh);
 
-const geometry = new THREE.BufferGeometry();
+const geometry = new THREE.BoxGeometry(1, 1, 1);
 
-const vertices = new Float32Array([
-  0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 2,
-]);
 
-// const vertices = new Float32Array([
-//   [0, 0, 0],
-//   [1, 0, 0],
-//   [0, 1, 0],
 
-//   [0, 0, 1],
-//   [1, 0, 1],
-//   [0, 0, 2]
-// ].flat())
-
-geometry.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
-
-const colors = new Float32Array(
-  [
-    [1, 0, 0],
-    [0, 1, 0],
-    [0, 0, 1],
-
-    [1, 0, 0],
-    [0, 1, 0],
-    [0, 0, 1],
-  ].flat()
-);
-
-geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+let doorColorTexture = new THREE.TextureLoader().load('/static/textures/door/color.jpg')
 const material = new THREE.MeshBasicMaterial({
   side: THREE.DoubleSide,
-  vertexColors: true,
-});
-console.log(geometry);
-let triangle = new THREE.Mesh(geometry, material);
+  // vertexColors: true,
+  map: doorColorTexture
+})
 
-// const material = new THREE.PointsMaterial({
-//   // color: '#ffffff',
-//   // side: THREE.DoubleSide,
-//   vertexColors: true,
-//   size: 1
+let gui = new dat.GUI();
 
-//   // transparent: true,
-//   // opacity: 1,
+gui.add(doorColorTexture.offset, 'x').min(-1).max(1).step(0.1).name('offsetX')
+gui.add(doorColorTexture.offset, 'y').min(-1).max(1).step(0.1).name('offsetY')
 
-// })
-// const triangle = new THREE.Points(geometry, material)
+gui.add(doorColorTexture.center, 'x').min(-1).max(1).step(0.1).name('centerX')
+gui.add(doorColorTexture.center, 'y').min(-1).max(1).step(0.1).name('centerY')
 
-scene.add(triangle);
+gui.add(doorColorTexture, 'rotation').min(0).max(Math.PI).step(0.1).name('rotation')
+
+gui.add(doorColorTexture.repeat, 'x').min(0).max(4).name('repeatX')
+gui.add(doorColorTexture.repeat, 'y').min(0).max(4).name('repeatY')
+
+//  设置纹理重复的模式
+doorColorTexture.wrapS = THREE.MirroredRepeatWrapping;
+doorColorTexture.wrapT = THREE.RepeatWrapping;
+
+
+
+let triangle = new THREE.Mesh(geometry, material)
+
+
+scene.add(triangle)
+
+
 
 /**
  * 相机设置
@@ -95,6 +80,9 @@ renderer.render(scene, camera);
 document.body.appendChild(renderer.domElement);
 
 new OrbitControls(camera, renderer.domElement);
+
+
+
 
 // 如果不重新绘制，物体会禁止就会不动
 function render(time: number) {

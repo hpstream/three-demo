@@ -5,6 +5,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 import * as dat from "dat.gui";
 
+
 // 目标：了解threejs的基本内容
 
 // scene
@@ -18,57 +19,39 @@ let scene = new THREE.Scene();
 // const mesh = new THREE.Mesh(geometry, material);
 // scene.add(mesh);
 
-const geometry = new THREE.BufferGeometry();
+for (let i = 0; i < 50; i++) {
+  const geometry = new THREE.BufferGeometry();
+  const vertices = new Float32Array(9);
+  for (let j = 0; j < 9; j++) {
+    vertices[j] = Math.random() * 10 - 5;
+  }
+  geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
 
-const vertices = new Float32Array([
-  0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 2,
-]);
+  let color = new THREE.Color(Math.random(), Math.random(), Math.random())
 
-// const vertices = new Float32Array([
-//   [0, 0, 0],
-//   [1, 0, 0],
-//   [0, 1, 0],
+  const material = new THREE.MeshBasicMaterial({
+    color: color,
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 0.5
+  })
+  let mesh = new THREE.Mesh(geometry, material)
+  scene.add(mesh)
 
-//   [0, 0, 1],
-//   [1, 0, 1],
-//   [0, 0, 2]
-// ].flat())
+}
 
-geometry.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
 
-const colors = new Float32Array(
-  [
-    [1, 0, 0],
-    [0, 1, 0],
-    [0, 0, 1],
 
-    [1, 0, 0],
-    [0, 1, 0],
-    [0, 0, 1],
-  ].flat()
-);
 
-geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-const material = new THREE.MeshBasicMaterial({
-  side: THREE.DoubleSide,
-  vertexColors: true,
-});
-console.log(geometry);
-let triangle = new THREE.Mesh(geometry, material);
 
-// const material = new THREE.PointsMaterial({
-//   // color: '#ffffff',
-//   // side: THREE.DoubleSide,
-//   vertexColors: true,
-//   size: 1
 
-//   // transparent: true,
-//   // opacity: 1,
 
-// })
-// const triangle = new THREE.Points(geometry, material)
 
-scene.add(triangle);
+
+
+
+
+
 
 /**
  * 相机设置
@@ -95,6 +78,9 @@ renderer.render(scene, camera);
 document.body.appendChild(renderer.domElement);
 
 new OrbitControls(camera, renderer.domElement);
+
+
+
 
 // 如果不重新绘制，物体会禁止就会不动
 function render(time: number) {

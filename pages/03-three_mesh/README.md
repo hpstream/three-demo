@@ -155,7 +155,7 @@ gui.add(doorColorTexture.repeat, 'y').min(0).max(4).name('repeatY')
 
 ```
 
-## 5.1 设置纹理重复的模式
+### 5.1 设置纹理重复的模式
 
 ```typescript
 
@@ -173,3 +173,83 @@ doorColorTexture.wrapT = THREE.RepeatWrapping;
 2. RepeatWrapping，纹理将简单地重复到无穷大。
 3. MirroredRepeatWrapping， 纹理将重复到无穷大，在每次重复时将进行镜像。
 
+### 5.2 设置texture纹理显示设置
+
+```typescript
+  var options = {
+    minFilters: {
+      NearestFilter: THREE.NearestFilter,
+      NearestMipMapLinearFilter: THREE.NearestMipMapLinearFilter,
+      NearestMipMapNearestFilter: THREE.NearestMipMapNearestFilter,
+      'LinearFilter ': THREE.LinearFilter,
+      'LinearMipMapLinearFilter (Default)': THREE.LinearMipMapLinearFilter,
+      LinearMipmapNearestFilter: THREE.LinearMipmapNearestFilter,
+    },
+    magFilters: {
+      NearestFilter: THREE.NearestFilter,
+      'LinearFilter (Default)': THREE.LinearFilter,
+    },
+  }
+// texture纹理显示设置
+texture.minFilter = THREE.NearestFilter;
+texture.magFilter = THREE.NearestFilter;
+
+// texture.minFilter = THREE.LinearFilter;
+// texture.magFilter = THREE.LinearFilter;
+```
+
+**magFilter：**
+> 当一个纹素覆盖大于一个像素时，贴图将如何采样。默认值为THREE.LinearFilter。
+
+- NearestFilter: THREE.NearestFilter,
+- 'LinearFilter (Default)': THREE.LinearFilter,
+
+
+**minFilter:**
+> 当一个纹素覆盖小于一个像素时，贴图将如何采样。默认值为THREE.LinearMipmapLinearFilter。
+- NearestFilter: THREE.NearestFilter,
+- NearestMipMapLinearFilter: THREE.NearestMipMapLinearFilter,
+- NearestMipMapNearestFilter: THREE.NearestMipMapNearestFilter,
+- 'LinearFilter ': THREE.LinearFilter,
+- 'LinearMipMapLinearFilter (Default)': THREE.LinearMipMapLinearFilter,
+- LinearMipmapNearestFilter: THREE.LinearMipmapNearestFilter,
+
+[详细中文文档](https://threejs.org/docs/index.html?q=MeshBasicMaterial#api/zh/textures/Texture)
+ 
+### 5.3 alphaMap纹理
+
+```typescript
+ let alphaTexture = new THREE.TextureLoader().load('/static/textures/door/alpha.jpg')
+
+const material = new THREE.MeshBasicMaterial({
+  // color: '#ff0000',
+  side: THREE.DoubleSide,
+  // vertexColors: true,
+  map: doorColorTexture,
+  alphaMap: alphaTexture,
+  transparent: true,
+  // opacity: 0.3,
+})
+```
+
+> alpha贴图是一张灰度纹理，用于控制整个表面的不透明度。（黑色：完全透明；白色：完全不透明）。 默认值为null。
+
+
+### 5.3 opMap纹理
+
+```typescript
+let doorAoTexture = new THREE.TextureLoader().load('/static/textures/door/ambientOcclusion.jpg')
+const material = new THREE.MeshBasicMaterial({
+  // color: '#ff0000',
+  side: THREE.DoubleSide,
+  aoMap: doorAoTexture,
+  aoMapIntensity: 1,
+  transparent: true,
+  // opacity: 0.3,
+})
+
+geometry.setAttribute('uv2', new BufferAttribute(geometry.getAttribute('uv').array, 2))
+
+```
+
+> 该纹理的红色通道用作环境遮挡贴图。默认值为null。aoMap需要第二组UV。

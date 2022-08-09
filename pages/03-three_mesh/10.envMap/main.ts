@@ -36,7 +36,6 @@ gui.add(material, 'metalness', 0, 1, 0.1)
 gui.add(material, 'roughness', 0, 1, 0.1)
 
 scene.background = envMap;
-
 scene.environment = envMap;
 
 let triangle = new THREE.Mesh(sphereGeometry, material)

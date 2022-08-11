@@ -61,6 +61,12 @@ spotLight.shadow.radius = 20;
 spotLight.shadow.camera.near = 0.5;
 spotLight.shadow.camera.far = 500;
 
+spotLight.target = sphere;
+spotLight.angle = Math.PI / 6;
+spotLight.distance = 0;
+spotLight.penumbra = 0;
+spotLight.decay = 0;
+
 
 let c = new CameraHelper(spotLight.shadow.camera);
 
@@ -71,6 +77,15 @@ let p = {
   far: 500,
   fov: 50
 }
+gui.add(sphere.position, "x").min(-5).max(5).step(0.1);
+gui
+  .add(spotLight, "angle")
+  .min(0)
+  .max(Math.PI / 2)
+  .step(0.01);
+gui.add(spotLight, "distance").min(0).max(10).step(0.01);
+gui.add(spotLight, "penumbra").min(0).max(1).step(0.01);
+gui.add(spotLight, "decay").min(0).max(5).step(0.01);
 
 gui
   .add(spotLight.shadow, "radius")

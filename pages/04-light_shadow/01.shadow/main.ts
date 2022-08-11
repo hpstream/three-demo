@@ -26,7 +26,6 @@ let sphere = new THREE.Mesh(sphereBufferGeometry, standardMaterial)
 sphere.castShadow = true;
 scene.add(sphere);
 
-
 // 创建一个平面
 
 let planeGeometry = new THREE.PlaneBufferGeometry(10, 10);
@@ -37,7 +36,6 @@ plane.rotation.set(-Math.PI / 2, 0, 0)
 plane.receiveShadow = true;
 
 scene.add(plane)
-
 
 
 // 增加光源

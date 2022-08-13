@@ -1,7 +1,7 @@
 import "./assets/css/style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-
+import gsap from 'gsap';
 import * as dat from "dat.gui";
 
 // 目标：了解threejs的基本内容
@@ -160,7 +160,7 @@ function scene3() {
   pointLight.shadow.mapSize.set(2048, 2048);
 
   let help = new THREE.CameraHelper(pointLight.shadow.camera)
-  smallBall.position.set(4, 4, 0);
+  smallBall.position.set(4, 4, 4);
 
   // 设置透视相机的属性
   smallBall.add(pointLight);
@@ -177,6 +177,8 @@ function scene3() {
 scene3();
 scene2();
 scene1();
+
+let arrGroup = [cubeGroup, sjxGroup, sphereGroup]
 /**
  * 渲染器
  */
@@ -191,14 +193,52 @@ document.body.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement)
 controls.listenToKeyEvents(document.body)
 
-let clock = new THREE.Clock()
+gsap.to(cubeGroup.rotation, {
+  x: "-=" + Math.PI * 2,
+  y: "+=" + Math.PI * 2,
+  duration: 5,
+  ease: "power2.inOut",
+  repeat: -1,
+  yoyo: true
+})
+gsap.to(sjxGroup.rotation, {
+  x: "-=" + Math.PI * 2,
+  z: "+=" + Math.PI * 2,
+  duration: 12,
+  ease: "power2.inOut",
+  repeat: -1,
+});
+let p = {
+  x: 2 * Math.PI,
+  smallBallEnd: -2 * Math.PI
+}
+gsap.to(p, {
+  x: p.smallBallEnd,
+  duration: 8,
+  ease: "power2.inOut",
+  repeat: -1,
+  yoyo: true,
+  onUpdate: (val) => {
+    smallBall.position.set(Math.sin(p.x) * 5, 5, Math.cos(p.x) * 5)
+  }
+
+});
+// gsap.to(smallBall.position, {
+//   z: -4,
+//   duration: 3,
+//   ease: "power2.inOut",
+//   repeat: -1,
+//   yoyo: true,
+// });
+
+let clock = new THREE.Clock();
 // 如果不重新绘制，物体会禁止就会不动
 function render() {
   let time = clock.getElapsedTime()
 
 
-  smallBall.position.x = Math.sin(time) * 8 - 4;
-  smallBall.position.z = Math.cos(time) * 8 - 4;
+  // smallBall.position.x = Math.sin(time) * 8 - 4;
+  // smallBall.position.z = Math.cos(time) * 8 - 4;
 
   //   根据当前滚动的scrolly，去设置相机移动的位置
   camera.position.y = -(window.scrollY / window.innerHeight) * 30;
@@ -225,4 +265,38 @@ window.addEventListener("resize", () => {
   renderer.setPixelRatio(window.devicePixelRatio);
 });
 
+// 设置当前页
+let currentPage = 0;
+// 监听滚动事件
+window.addEventListener("scroll", () => {
+  //   console.log(window.scrollY);
+  const newPage = Math.round(window.scrollY / window.innerHeight);
+  if (newPage != currentPage) {
+    currentPage = newPage;
+    console.log("改变页面，当前是：" + currentPage);
+    console.log(arrGroup[currentPage].rotation);
+    gsap.to(arrGroup[currentPage].rotation, {
+      z: "+=" + Math.PI * 2,
+      x: "+=" + Math.PI * 2,
+      duration: 2,
+      onComplete: () => {
+        console.log("旋转完成");
+      },
+    });
 
+
+
+    gsap.fromTo(
+      `.page${currentPage} h1`,
+      { x: -300, },
+      { x: 0, rotate: "360", duration: 1 }
+    );
+
+    gsap.fromTo(
+      `.page${currentPage} h3`,
+      { scale: 0.1 },
+      { scale: '+=1', duration: 1 }
+    );
+
+  }
+});

@@ -31,3 +31,8 @@ canvas {
 ::-webkit-scrollbar {
   display: none;
 }
+
+canvas{
+  /* position: absolute; */
+  /* z-index: 1000; */
+}

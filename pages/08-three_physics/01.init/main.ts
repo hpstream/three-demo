@@ -58,20 +58,7 @@ let cSpherebody = new CANNON.Body({
 world.addBody(cSpherebody);
 
 
-// 创建地面
-let floorShape = new CANNON.Plane();
-// 创建材质
-let floorMaterial = new CANNON.Material({});
 
-let floorBody = new CANNON.Body({
-  shape: floorShape,
-  material: floorMaterial,
-  mass: 0,
-  position: new CANNON.Vec3(0, -5, 0)
-})
-// 旋转地面的位置
-floorBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
-world.addBody(floorBody)
 
 
 

@@ -16,7 +16,7 @@ const sphereGeometry = new THREE.SphereGeometry(1, 20, 20);
 const sphereMaterial = new THREE.MeshStandardMaterial();
 const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 sphere.castShadow = true;
-sphere.position.set(0, 5, 0)
+sphere.position.set(0, 10, 0)
 scene.add(sphere);
 
 const floor = new THREE.Mesh(
@@ -38,6 +38,10 @@ dirLight.castShadow = true;
 scene.add(dirLight);
 
 
+
+
+
+
 // 创建一个物理世界
 
 let world = new CANNON.World();
@@ -49,7 +53,6 @@ let cSphere = new CANNON.Sphere(1);
 
 let cSphereMaterial = new CANNON.Material();
 
-
 let cSpherebody = new CANNON.Body({
   shape: cSphere,
   material: cSphereMaterial,
@@ -59,11 +62,30 @@ let cSpherebody = new CANNON.Body({
 // 将物体添加至物理世界
 world.addBody(cSpherebody);
 
+// 创建声音
+
+
+cSpherebody.addEventListener('collide', (e: any) => {
+
+  // 获取碰撞的强度
+  //   console.log("hit", e);
+  const hitSound = new Audio('/static/assets/metalHit.mp3')
+
+  const impactStrength = e.contact.getImpactVelocityAlongNormal();
+  console.log(impactStrength);
+  if (impactStrength > 2) {
+    //   重新从零开始播放
+    hitSound.currentTime = 0;
+    hitSound.play();
+  }
+
+})
+
 
 // 创建地面
 let floorShape = new CANNON.Plane();
 // 创建材质
-let floorMaterial = new CANNON.Material({});
+let floorMaterial = new CANNON.Material();
 
 let floorBody = new CANNON.Body({
   shape: floorShape,
@@ -74,6 +96,14 @@ let floorBody = new CANNON.Body({
 // 旋转地面的位置
 floorBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
 world.addBody(floorBody)
+
+// 设置2中种材质的碰撞系数
+const defaultContactMaterial = new CANNON.ContactMaterial(cSphereMaterial, floorMaterial, {
+  friction: 0.1,
+  restitution: 0.7,
+})
+
+world.addContactMaterial(defaultContactMaterial)
 
 /**
  * 相机设置

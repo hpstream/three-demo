@@ -38,10 +38,6 @@ dirLight.castShadow = true;
 scene.add(dirLight);
 
 
-
-
-
-
 // 创建一个物理世界
 
 let world = new CANNON.World();
@@ -66,7 +62,6 @@ world.addBody(cSpherebody);
 
 
 cSpherebody.addEventListener('collide', (e: any) => {
-
   // 获取碰撞的强度
   //   console.log("hit", e);
   const hitSound = new Audio('/static/assets/metalHit.mp3')
@@ -80,7 +75,6 @@ cSpherebody.addEventListener('collide', (e: any) => {
   }
 
 })
-
 
 // 创建地面
 let floorShape = new CANNON.Plane();

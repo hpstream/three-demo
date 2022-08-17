@@ -94,7 +94,7 @@ controls.enableDamping = true;
 // controls.autoRotate = true;
 
 const clock = new THREE.Clock();
-function animate(t) {
+function animate() {
   const elapsedTime = clock.getElapsedTime();
   //   console.log(elapsedTime);
   requestAnimationFrame(animate);

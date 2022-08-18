@@ -4,6 +4,7 @@ attribute vec2 uv;
 
 
 uniform mat4 projectionMatrix;
+uniform mat4 modelViewMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
 varying vec2 vUv;
@@ -18,6 +19,8 @@ void main(){
     vUv = uv;
 
     vec4 modelPosition = modelMatrix * vec4( position, 1.0 );
+
+    // modelViewMatrix  = viewMatrix * modelMatrix;
   
     modelPosition.z = sin((modelPosition.y+uTime)  * 10.0)*0.05 ;
     modelPosition.z += sin((modelPosition.y+uTime)  * 10.0)*0.05 ;

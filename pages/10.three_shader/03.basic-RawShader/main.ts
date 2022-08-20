@@ -60,9 +60,10 @@ const shaderMaterial = new THREE.RawShaderMaterial({
 
 // 创建平面
 const floor = new THREE.Mesh(
-  new THREE.PlaneBufferGeometry(1, 1, 60, 60),
+  new THREE.PlaneBufferGeometry(1, 1, 1, 1),
   shaderMaterial
 );
+
 
 console.log(floor);
 scene.add(floor);

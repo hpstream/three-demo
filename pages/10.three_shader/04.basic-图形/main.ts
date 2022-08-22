@@ -43,6 +43,12 @@ scene.add(axesHelper);
 const textureLoader = new THREE.TextureLoader();
 // const texture = textureLoader.load("/static/glsl/ca.jpeg");
 // const material = new THREE.MeshBasicMaterial({ color: "#00ff00" });
+
+const params = {
+  uFrequency: 10,
+  uScale: 0.1,
+};
+
 // 创建着色器材质
 const shaderMaterial = new THREE.ShaderMaterial({
   vertexShader: basicVertexShader,
@@ -52,9 +58,23 @@ const shaderMaterial = new THREE.ShaderMaterial({
     uTime: {
       value: 0,
     },
+    // 波浪的幅度
+    uScale: {
+      value: params.uScale,
+    },
 
   },
 });
+
+gui
+  .add(params, "uScale")
+  .min(0)
+  .max(1)
+  .step(0.01)
+  .onChange((value) => {
+    shaderMaterial.uniforms.uScale.value = value;
+  });
+
 
 // 创建平面
 const floor = new THREE.Mesh(

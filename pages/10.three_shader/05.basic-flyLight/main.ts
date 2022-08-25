@@ -75,25 +75,28 @@ gltfLoader.load("/static/hdr/flay-light.glb", (gltf) => {
   LightBox = gltf.scene.children[1];
   LightBox.material = shaderMaterial;
   console.log(gltf);
-  scene.add(gltf.scene);
-  gsap.to(gltf.scene.rotation, {
-    y: 2 * Math.PI,
-    duration: 10 + Math.random() * 30,
-    repeat: -1,
-  });
-  gsap.to(gltf.scene.position, {
-    // x: "+=" + Math.random() * 5,
-    y: "+=" + Math.random() * 20,
-    yoyo: true,
-    duration: 5 + Math.random() * 10,
-    repeat: -1,
-  });
-  for (let i = 0; i < 150; i++) {
+  // scene.add(gltf.scene);
+  // gsap.to(gltf.scene.rotation, {
+  //   y: 2 * Math.PI,
+  //   duration: 10 + Math.random() * 30,
+  //   repeat: -1,
+  // });
+  // gsap.to(gltf.scene.position, {
+  //   // x: "+=" + Math.random() * 5,
+  //   y: "+=" + Math.random() * 20,
+  //   yoyo: true,
+  //   duration: 5 + Math.random() * 10,
+  //   repeat: -1,
+  // });
+  for (let i = 0; i < 200; i++) {
     let flyLight = gltf.scene.clone(true);
     let x = (Math.random() - 0.5) * 300;
     let z = (Math.random() - 0.5) * 300;
     let y = Math.random() * 60 + 25;
     flyLight.position.set(x, y, z);
+    // [25, 85] -> [1,0.5]  85-0.5/25-1
+    let val = 1.4 - (y - 25) * (y - 25) / (60 * 60)
+    flyLight.scale.set(val, val, val)
     gsap.to(flyLight.rotation, {
       y: 2 * Math.PI,
       duration: 10 + Math.random() * 30,
@@ -163,7 +166,13 @@ const controls = new OrbitControls(camera, renderer.domElement);
 // 设置控制器阻尼
 controls.enableDamping = true;
 // 设置自动旋转
-// controls.autoRotate = true;
+controls.autoRotate = true;
+// 自动旋转速度
+controls.autoRotateSpeed = 0.2;
+// 旋转最大角度
+// controls.maxPolarAngle = (Math.PI / 3) * 2;
+// // 旋转最小角度
+// controls.minPolarAngle = (Math.PI / 3) * 2;
 
 const clock = new THREE.Clock();
 function animate() {
@@ -171,7 +180,7 @@ function animate() {
   //   console.log(elapsedTime);
 
   // shaderMaterial.uniforms.u_time.value = elapsedTime;
-
+  controls.update();
   requestAnimationFrame(animate);
   // 使用渲染器渲染相机看这个场景的内容渲染出来
   renderer.render(scene, camera);

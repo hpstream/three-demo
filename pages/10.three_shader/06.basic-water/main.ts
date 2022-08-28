@@ -51,6 +51,7 @@ const params = {
   uLowColor: "#ff0000",
   uHighColor: "#ffff00",
   uXspeed: 1,
+  uTime: 0,
   uZspeed: 1,
   uNoiseSpeed: 1,
   uOpacity: 1,

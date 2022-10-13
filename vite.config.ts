@@ -4,7 +4,7 @@ import * as path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "https://hpstream.github.io/THREE-DEMO/",
+  base: "https://hpstream.github.io/three-demo/",
   build: {
     outDir: "docs",
     rollupOptions: {

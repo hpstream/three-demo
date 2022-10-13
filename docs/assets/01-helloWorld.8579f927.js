@@ -1,0 +1,1 @@
+import"./modulepreload-polyfill.b7f2da20.js";import{S as o,B as i,M as s,a as d,P as m,W as c}from"./three.module.e9e6bd54.js";let n=new o;const w=new i(1,1,1),h=new s({color:16711680}),l=new d(w,h);n.add(l);var r=window.innerWidth,a=window.innerHeight,p=r/a,t=new m(75,p,.1,1e3);t.position.z=10;const e=new c;e.setSize(r,a);e.render(n,t);document.body.appendChild(e.domElement);

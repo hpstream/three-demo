@@ -15,7 +15,9 @@ export default class GameView {
   initGameOverPage(callbacks: any) {
 
     this.gameOverPage = new GameOverPage(callbacks);
-    this.gamePage.init();
+    this.gameOverPage.init({
+      scene: this.gamePage.scene
+    });
 
   }
 

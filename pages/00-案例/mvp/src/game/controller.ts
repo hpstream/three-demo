@@ -20,7 +20,6 @@ class GameController {
     }
 
 
-
     this.gameView.initGamePage(gamePageCallbacks)
     this.gameView.initGameOverPage(gameOverPageCallbacks)
   }
@@ -33,4 +32,4 @@ class GameController {
 
 }
 
-export default new GameController()
+export default GameController

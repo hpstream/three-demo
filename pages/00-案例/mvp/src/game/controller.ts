@@ -8,20 +8,42 @@ class GameController {
   constructor() {
     this.gameView = new GameView();
     this.gameModel = new GameModel();
+    this.gameModel.stageChanged.attach((sender, args) => {
+      const stageName = args.stage
+      switch (stageName) {
+        case 'game-over':
+          this.gameView.showGameOverPage()
+          break
+        case 'game':
+          this.gameView.showGamePage()
+          break
+        default:
+      }
+    })
 
   }
   initPages() {
+    const startPageCallbacks = {
+      gameRestart: () => {
+        this.gameModel.setStage('game')
+      }
+    }
+
     const gamePageCallbacks = {
-      showGameOverPage: this.showGameOverPage
+      showGameOverPage: () => {
+        this.gameModel.setStage('game-over')
+      }
     }
 
     const gameOverPageCallbacks = {
-      gameRestart: this.restarGame
+      gameRestart: () => {
+        this.gameModel.setStage('game')
+      }
     }
 
 
-    this.gameView.initGamePage(gamePageCallbacks)
-    this.gameView.initGameOverPage(gameOverPageCallbacks)
+    this.gameView.initGamePage(startPageCallbacks)
+    this.gameView.initGameOverPage(gamePageCallbacks)
   }
   showGameOverPage = () => {
     this.gameView.showGameOverPage();

@@ -46,6 +46,9 @@ export class GameOverPage {
 
 
   }
+  hide() {
+
+  }
   show() {
 
   }

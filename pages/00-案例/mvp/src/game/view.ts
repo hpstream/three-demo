@@ -15,9 +15,9 @@ export default class GameView {
   initGameOverPage(callbacks: any) {
 
     this.gameOverPage = new GameOverPage(callbacks);
-    this.gameOverPage.init({
-      scene: this.gamePage.scene
-    });
+    // this.gameOverPage.init({
+    //   scene: this.gamePage.scene
+    // });
 
   }
 
@@ -26,6 +26,9 @@ export default class GameView {
     this.gamePage = new GamePage(callbacks);
     this.gamePage.init();
 
+  }
+  showGamePage() {
+    this.gamePage.show();
   }
 
   showGameOverPage() {

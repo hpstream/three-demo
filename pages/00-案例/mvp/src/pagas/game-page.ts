@@ -1,76 +1,57 @@
 import * as THREE from "three";
 import { AxesHelper } from "three";
+import { scene } from "../scene";
+import Scene from "../scene/Scene";
+
+
 
 export class GamePage {
   callbacks: any;
-  scene: THREE.Scene;
+  scene: Scene;
+  now: number;
+  lastFrameTime: number;
+
   constructor(callbacks: any) {
     this.callbacks = callbacks;
   }
 
   init() {
-    var scene = new THREE.Scene()
-    this.scene = scene;
-
     var width = window.innerWidth;
     var height = window.innerHeight;
 
-    var canvas = document.getElementById('canvas')
+    var canvas = document.getElementById('canvas') as HTMLCanvasElement;
     canvas.style.width = canvas + 'px';
     canvas.style.height = canvas + 'px';
+    this.scene = scene;
+    this.scene.init(canvas);
 
-    var renderer = new THREE.WebGLRenderer({
-      canvas: canvas
-    })
-    let axes = new AxesHelper(100);
-    scene.add(axes);
+    let cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1),
+      new THREE.MeshBasicMaterial({ color: '#fff' }))
 
-    var camera = new THREE.OrthographicCamera(-width / 2, width / 2,
-      height / 2, -height / 2, -1000, 1000)
+    cube.position.set(5, 0, 0)
+    this.scene.instance.add(cube);
 
-    renderer.setClearColor(new THREE.Color(0x000000))
-    renderer.setSize(width, height)
+    this.scene.instance.add(new AxesHelper(10))
 
-    var triangleShape = new THREE.Shape()
-    triangleShape.moveTo(0, 100)
-    triangleShape.lineTo(-100, -100)
-    triangleShape.lineTo(100, -100)
-    triangleShape.lineTo(0, 100)
 
-    var geometry = new THREE.ShapeGeometry(triangleShape)
-    var material = new THREE.MeshBasicMaterial({
-      color: 0xff0000,
-      side: THREE.DoubleSide
-    })
-    var mesh = new THREE.Mesh(geometry, material)
-    mesh.position.x = 0
-    mesh.position.y = 0
-    mesh.position.z = 1
-    scene.add(mesh)
 
-    camera.position.x = 0
-    camera.position.y = 0
-    camera.position.z = 0
-    camera.lookAt(new THREE.Vector3(0, 0, 1))
+    this.render();
 
-    var currentAngle = 0
-    var lastTimestamp = Date.now()
 
-    var animate = function () {
-      var now = Date.now()
-      var duration = now - lastTimestamp
-      lastTimestamp = now
-      currentAngle = currentAngle + duration / 1000 * Math.PI
-    }
+  }
+  render() {
+    this.now = Date.now()
+    const tickTime = this.now - this.lastFrameTime
 
-    var render = function () {
-      animate()
-      mesh.rotation.set(0, 0, currentAngle)
-      renderer.render(scene, camera)
-      requestAnimationFrame(render)
-    }
+    this.scene.render()
 
-    render()
+    this.lastFrameTime = Date.now()
+    requestAnimationFrame(this.render.bind(this))
+  }
+
+  show() { }
+  hide() {
+
   }
   restart() {
 

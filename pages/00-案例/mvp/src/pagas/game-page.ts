@@ -25,13 +25,14 @@ export class GamePage {
     this.scene = scene;
     this.scene.init(canvas);
 
-    let cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1),
-      new THREE.MeshBasicMaterial({ color: '#fff' }))
+    let cube = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2),
+      new THREE.MeshStandardMaterial({ color: '#ffffff' }))
 
-    cube.position.set(5, 0, 0)
+    cube.position.set(0, 0, 0)
+    cube.castShadow = true;
     this.scene.instance.add(cube);
 
-    this.scene.instance.add(new AxesHelper(10))
+    // this.scene.instance.add(new AxesHelper(10))
 
 
 

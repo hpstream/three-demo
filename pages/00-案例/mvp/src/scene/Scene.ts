@@ -26,20 +26,21 @@ export default class Scene {
     this.camera.init();
     this.light.init();
 
-    this.instance.add(this.camera.instance)
+    // this.instance.add(this.camera.instance)
     this.instance.add(this.light.shadowLight)
     this.instance.add(this.light.ambientLight)
     this.instance.add(this.light.shadowTarget)
 
     renderer.shadowMap.enabled = true;
-    //   更新渲染器
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    //   设置渲染器的像素比
-    renderer.setPixelRatio(window.devicePixelRatio);
+
 
   }
 
   render() {
+    //   更新渲染器
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    //   设置渲染器的像素比
+    this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.render(this.instance, this.camera.instance)
   }
 

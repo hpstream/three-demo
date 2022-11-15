@@ -48,6 +48,7 @@ scene.add(ambientLight)
 
 // 平行光
 let spotLight = new THREE.SpotLight(0xffffff, 0.5);
+
 spotLight.castShadow = true;
 spotLight.position.set(5, 5, 5);
 

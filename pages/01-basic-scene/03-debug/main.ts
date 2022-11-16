@@ -11,57 +11,49 @@ let deg = 0.01, box: THREE.Mesh;
 let renderer = new THREE.WebGLRenderer({
   antialias: true
 });
-let i = 0;
-let spotLightHelper: THREE.SpotLightHelper;
-let spotLight: THREE.SpotLight;
 renderer.shadowMap.enabled = true;
-// 1、材质要满足能够对光照有反应
-// 2、设置渲染器开启阴影的计算 renderer.shadowMap.enabled = true;
-// 3、设置光照投射阴影 directionalLight.castShadow = true;
-// 4、设置物体投射阴影 sphere.castShadow = true;
-// 5、设置物体接收阴影 plane.receiveShadow = true;
+let spotLight: THREE.SpotLight,
+  spotLightHelper: THREE.SpotLightHelper;
 
-initLight()
+
+
+
+initLight();
 initCube();
+
 initCamera();
 inigtAxes();
 render();
-
 let gui = new GUI();
-
 let s = gui.addFolder('控制');
 s.open();
-s.add(spotLight.position, 'x').min(-5).max(5).onChange(() => {
-})
-s.add(spotLight.position, 'z').min(-5).max(5).onChange(() => {
-})
-s.add(spotLight, 'angle').min(0).max(Math.PI / 2).onChange(() => {
-})
+// intensity ?: number,
+//   distance ?: number,
+//   angle ?: number,
+//   penumbra ?: number,
+//   decay ?: number,
+s.add(spotLight.position, 'x').min(-5).max(5).onChange(() => { });
+s.add(spotLight.position, 'z').min(-5).max(5).onChange(() => { });
+s.add(spotLight, 'intensity').min(-5).max(5).onChange(() => { });
+s.add(spotLight, 'distance').min(0).max(50).onChange(() => { });
+s.add(spotLight, 'angle').min(0).max(Math.PI / 2).onChange(() => { });
+s.add(spotLight, 'penumbra').min(-5).max(5).step(0.1).onChange(() => { });
+s.add(spotLight, 'decay').min(-5).max(5).onChange(() => { });
 
-s.add(spotLight, 'penumbra').min(-10).max(10).onChange(() => {
-})
-s.add(spotLight, 'intensity').min(-10).max(10).onChange(() => {
-})
-s.add(spotLight, 'distance').min(10).max(100).onChange(() => {
-})
-
+// 环境光不产生投影
 function initLight() {
-  let ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-  scene.add(ambientLight);
+  let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+  scene.add(ambientLight)
+
   spotLight = new THREE.SpotLight(0xffffff, 1.0);
-  spotLight.shadow.mapSize.set(4096, 4096)
   spotLight.castShadow = true;
-  spotLight.angle = Math.PI / 6;
-  spotLight.penumbra = 1;
   spotLight.position.set(0, 10, 0);
-  // spotLight.lookAt(0, 0, 0);
+  spotLight.angle = Math.PI / 6
   scene.add(spotLight);
-  spotLightHelper = new THREE.SpotLightHelper(spotLight)
 
-  scene.add(spotLightHelper);
-
+  spotLightHelper = new THREE.SpotLightHelper(spotLight);
+  scene.add(spotLightHelper)
 }
-
 new OrbitControls(camera, renderer.domElement);
 renderer.setSize(width, height);
 
@@ -77,10 +69,10 @@ function inigtAxes() {
 
 
 function render() {
-  i += 0.01;
   box.rotateY(deg);
-  // spotLight.position.set(5 + 5 * Math.sin(i), 10, 5 + 5 * Math.cos(i));
+
   spotLightHelper.update();
+
   renderer.render(scene, camera);
   requestAnimationFrame(render)
 }
@@ -96,16 +88,17 @@ function initCube() {
   box = new THREE.Mesh(geometry, mesh)
   box.position.set(0, 0, 0)
   box.castShadow = true;
-  scene.add(box);
+  scene.add(box)
+
 
   let plane = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), new THREE.MeshPhongMaterial({
     color: 0xffffff,
     // side: THREE.DoubleSide
   }))
-
-  plane.rotateX(-Math.PI / 2);
-  plane.position.set(0, -1, 0);
   plane.receiveShadow = true;
+  plane.rotateX(-Math.PI / 2);
+  plane.position.set(0, -1, 0)
+
 
   scene.add(plane)
 }

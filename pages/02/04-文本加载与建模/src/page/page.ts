@@ -5,7 +5,7 @@ import renderer from '../instance/renderer';
 import Scene from '../instance/scene';
 import Geometry from '../geometry/geometry';
 import * as THREE from "three";
-import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 export class Page {
   camera: Camera;
   renderer: renderer;
@@ -13,7 +13,8 @@ export class Page {
   light: Light;
   geometry: Geometry;
   cube: any;
-  trackballControls: TrackballControls;
+  orbitControls: OrbitControls;
+  // trackballControls: TrackballControls;
 
   constructor() {
     this.init()
@@ -32,7 +33,6 @@ export class Page {
     // 添加灯光
     this.light = new Light(scene);
     this.light.init();
-    this.light.pointLight.position.copy(this.camera.perspectiveCamera.position)
 
 
 
@@ -48,14 +48,11 @@ export class Page {
     let scene = this.scene.scene;
     let camera = this.camera.perspectiveCamera;
     scene.add(new THREE.AxesHelper(100))
-    this.trackballControls = new TrackballControls(camera, this.renderer.renderer.domElement);
-    this.trackballControls.minDistance = 200;
-    this.trackballControls.maxDistance = 500;
+    this.orbitControls = new OrbitControls(camera, this.renderer.renderer.domElement);
+
   }
 
   render = () => {
-
-    this.trackballControls && this.trackballControls.update();
 
 
     this.renderer.render();
@@ -68,7 +65,6 @@ export class Page {
     let { renderer } = this.renderer;
     window.addEventListener('resize', () => {
       perspectiveCamera.aspect = config.aspect;
-      this.trackballControls.handleResize();
 
       perspectiveCamera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight)

@@ -51,6 +51,7 @@ export class Page {
     new OrbitControls(camera, this.renderer.renderer.domElement);
 
     let stats = this.stats = Stats();
+
     document.body.appendChild(stats.dom);
   }
 

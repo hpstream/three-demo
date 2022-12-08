@@ -22,8 +22,9 @@ console.log(geometry)
 
 let gui = new dat.GUI();
 let g = gui.addFolder("立方体");
+g.close();
 g.open();
-// 数字操作
+// 数字操作，字符串，布尔值，函数
 g.add(mesh.position, "x")
   .min(0)
   .max(5)

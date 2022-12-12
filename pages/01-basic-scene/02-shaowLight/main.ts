@@ -23,6 +23,7 @@ render();
 let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight)
 
+
 let spotLight = new THREE.SpotLight(0xffffff, 1.0);
 spotLight.castShadow = true;
 spotLight.position.set(0, 10, 0);
@@ -52,8 +53,8 @@ function render() {
 function initCube() {
   let geometry = new THREE.BoxGeometry(1, 1, 1);
 
-  let mesh = new THREE.MeshPhongMaterial({
-    color: 0x00ff00
+  let mesh = new THREE.MeshLambertMaterial({
+    color: 0xffffff
   })
 
   box = new THREE.Mesh(geometry, mesh)

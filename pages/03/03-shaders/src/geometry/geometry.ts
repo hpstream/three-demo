@@ -83,7 +83,8 @@ export default class Geometry {
 
 
     const skyUniforms = sky.material.uniforms;
-    skyUniforms['turbidty'].value = 10; // 浑浊度
+    // console.log(skyUniforms)
+    skyUniforms['turbidity'].value = 10; // 浑浊度
     skyUniforms['rayleigh'].value = 2; // 瑞利值
     skyUniforms['mieCoefficient'].value = 0.005;
     skyUniforms['mieDirectionalG'].value = 0.008;

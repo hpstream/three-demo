@@ -9,9 +9,11 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "lib": ["esnext", "dom"],
     "typeRoots": [],
-    "types": []
+    "types": ["ammojs-typed"],
+      
   },
   "include": ["src","pages","types"],
   "references": [{

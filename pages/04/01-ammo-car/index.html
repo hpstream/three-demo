@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        color: #61443e;
+        font-size: 13px;
+      }
+      #speedometer {
+        color: #ffffff;
+        background-color: #990000;
+        position: absolute;
+        bottom: 0px;
+        padding: 5px;
+      }
+      #info {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+        padding: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="speedometer">0.0 km/h</div>
+    <div id="info">
+      Ammo.js Raycast vehicle demo<br />Press W,A,S,D to move.
+    </div>
+    <script src="/static/libs/ammo.js"></script>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

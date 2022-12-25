@@ -17,6 +17,8 @@ declare module Ammo {
   const HEAPU32: Uint32Array;
   const HEAPF32: Float32Array;
   const HEAPF64: Float64Array;
+
+  function castObject(btCObject: any, body: any): any;
   class btIDebugDraw {
     drawLine(from: btVector3, to: btVector3, color: btVector3): void;
     drawContactPoint(pointOnB: btVector3, normalOnB: btVector3, distance: number, lifeTime: number, color: btVector3): void;

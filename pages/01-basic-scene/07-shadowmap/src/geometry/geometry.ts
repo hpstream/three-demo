@@ -18,7 +18,7 @@ export default class Geometry {
 
 
   initFloor() {
-    let floor = this.floor = new THREE.Mesh(new THREE.BoxGeometry(10, 0.15, 10), new THREE.MeshPhongMaterial({
+    let floor = this.floor = new THREE.Mesh(new THREE.BoxGeometry(100, 0.15, 100), new THREE.MeshPhongMaterial({
       color: 0xa0adaf,
       shininess: 150, // 高亮的程度，越高的值越闪亮。默认值为 30.
       specular: 0x111111 // 材质的高光颜色。默认值为0x111111（深灰色）的颜色

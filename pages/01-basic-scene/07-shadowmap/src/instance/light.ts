@@ -16,16 +16,16 @@ export default class Light {
     let spotLight = this.spotLight = new THREE.SpotLight(0xffffff, 1.0);
     spotLight.name = 'Spot Light';
     spotLight.castShadow = true;
-    spotLight.angle = Math.PI / 5;
+    spotLight.angle = Math.PI / 3;
     spotLight.penumbra = 0.3; //聚光锥的半影衰减百分比。在0和1之间的值。默认为0
 
     spotLight.position.set(10, 10, 5);
     this.scene.add(spotLight);
     // 相机帮助器
-    spotLight.shadow.camera.near = 8;
-    spotLight.shadow.camera.far = 30;
-    spotLight.shadow.mapSize.width = 1024;
-    spotLight.shadow.mapSize.height = 1024;
+    // spotLight.shadow.camera.near = 8;
+    // spotLight.shadow.camera.far = 30;
+    // spotLight.shadow.mapSize.width = 1024;
+    // spotLight.shadow.mapSize.height = 1024;
     this.scene.add(new THREE.CameraHelper(spotLight.shadow.camera))
 
     // 平行光
@@ -42,7 +42,7 @@ export default class Light {
     dirLight.shadow.camera.bottom = -15;
 
 
-    this.scene.add(new THREE.CameraHelper(dirLight.shadow.camera))
+    // this.scene.add(new THREE.CameraHelper(dirLight.shadow.camera))
 
   }
 }

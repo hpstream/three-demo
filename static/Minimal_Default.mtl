@@ -1,0 +1,5 @@
+﻿newmtl /Game/StarterContent/Props/Materials/M_Chair_M_Chair
+	map_Kd M_Chair_M_Chair_D.bmp
+	map_Ks M_Chair_M_Chair_S.bmp
+	bump M_Chair_M_Chair_N.bmp
+
